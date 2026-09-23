@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "Udon POI Guide",
+    "slug": "udon-poi-guide",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "อนุญาตให้แอปใช้กล้องเพื่อถ่ายภาพสถานที่"
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "อนุญาตให้เข้าถึงคลังภาพ",
+          "savePhotosPermission": "อนุญาตให้บันทึกรูปลงในคลังภาพ",
+          "granularPermissions": ["photo"]
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#B75B3E"
+        }
+      ]
+    ],
+    "android": {
+      "package": "com.student.udonpoiguide"
+    },
+    "ios": {
+      "bundleIdentifier": "com.student.udonpoiguide",
+      "supportsTablet": true
+    }
+  }
+}
