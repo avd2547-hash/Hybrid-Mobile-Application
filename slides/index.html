@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Campus Events — สรุปความรู้ 11 สัปดาห์ที่นำมาใช้จริง</title>
+<style>
+  :root {
+    --navy:#16305A; --navy-light:#1E3D73; --cream:#FBF5E6; --cream-dark:#F0E6CF;
+    --gold:#C9A227; --text:#1A2233; --muted:#6B7280; --danger:#DC4C5C;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI','Noto Sans Thai','Sarabun',sans-serif; background:var(--navy); color:var(--text); }
+  .deck { max-width:1100px; margin:0 auto; }
+  .slide {
+    display:none; min-height:100vh; padding:60px 70px; background:var(--cream);
+    flex-direction:column; justify-content:center;
+  }
+  .slide.active { display:flex; }
+  .slide.hero { background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 60%,#25477F 100%); color:var(--cream); align-items:center; text-align:center; }
+  .slide.hero h1 { font-size:52px; margin-bottom:18px; letter-spacing:-0.5px; }
+  .slide.hero .sub { font-size:22px; opacity:.85; margin-bottom:30px; }
+  .slide.hero .badge { background:var(--gold); color:var(--navy); font-weight:800; padding:10px 26px; border-radius:999px; font-size:16px; }
+  .slide.hero .meta { margin-top:44px; font-size:14px; opacity:.65; }
+  h2.slide-title { font-size:34px; color:var(--navy); margin-bottom:8px; }
+  .slide-subtitle { color:var(--gold); font-weight:700; font-size:15px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:22px; }
+  .cols { display:flex; gap:26px; margin-top:10px; }
+  .col { flex:1; background:#fff; border:1px solid #E5DECD; border-radius:16px; padding:26px 28px; }
+  .col h3 { font-size:15px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; }
+  .col.ride h3 { color:var(--navy); }
+  ul { list-style:none; }
+  li { padding:9px 0 9px 26px; position:relative; font-size:16.5px; line-height:1.55; }
+  li::before { content:'▸'; position:absolute; left:2px; color:var(--gold); font-weight:700; }
+  code { background:var(--cream-dark); color:var(--navy); padding:2px 7px; border-radius:6px; font-size:13.5px; font-family:Consolas,monospace; }
+  .nav { position:fixed; bottom:22px; right:30px; display:flex; gap:10px; z-index:10; }
+  .nav button { background:var(--navy); color:var(--cream); border:none; width:46px; height:46px; border-radius:50%; font-size:20px; cursor:pointer; box-shadow:0 3px 10px rgba(0,0,0,.3); }
+  .nav button:hover { background:var(--gold); color:var(--navy); }
+  .counter { position:fixed; bottom:34px; left:34px; color:var(--muted); font-size:14px; font-weight:600; z-index:10; }
+  .progress { position:fixed; top:0; left:0; height:5px; background:var(--gold); transition:width .25s; z-index:10; }
+  .closing { align-items:center; text-align:center; }
+  .closing .big { font-size:40px; color:var(--navy); font-weight:800; margin-bottom:14px; }
+  .closing p { font-size:18px; color:var(--muted); max-width:640px; line-height:1.7; }
+  .stat-grid { display:flex; gap:18px; margin-top:34px; }
+  .stat { background:#fff; border-radius:14px; padding:20px 28px; border:1px solid #E5DECD; }
+  .stat b { display:block; font-size:30px; color:var(--navy); }
+  .stat span { font-size:13px; color:var(--muted); }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <section class="slide hero active">
+    <h1>Campus Events</h1>
+    <div class="sub">แอปรวมกิจกรรมมหาวิทยาลัย — สร้าง · ลงทะเบียน · แจ้งเตือนก่อนกิจกรรม</div>
+    <div class="badge">Hybrid Mobile Application · Week 1–11</div>
+    <div class="meta">Expo (SDK 57) + React Native + TypeScript · iOS / Android / Web</div>
+  </section>
+
+  <section class="slide">
+    <h2 class="slide-title">ภาพรวมแอปและเทคโนโลยี</h2>
+    <div class="slide-subtitle">รวมความรู้คอร์สทั้งหมดในแอปเดียว</div>
+    <div class="cols">
+      <div class="col">
+        <h3>เนื้อหาที่เรียน (ภาพรวม)</h3>
+        <ul>
+          <li>เริ่มต้นโปรเจกต์และรันแอปด้วย Expo</li>
+          <li>Component, JSX, เทคนิค Styling</li>
+          <li>State / Lifecycle / Effects</li>
+          <li>ฟอร์ม + Validation</li>
+          <li>รายการ (List) และการค้นหา</li>
+          <li>Navigation และ Context แบบ global state</li>
+          <li>Media, Location, Map</li>
+          <li>Data persistence และ Notification</li>
+        </ul>
+      </div>
+      <div class="col ride">
+        <h3>นำมาใช้ในงาน (ผลลัพธ์จริง)</h3>
+        <ul>
+          <li>สร้างกิจกรรมพร้อม <b>เลือกวันเวลาจากปฏิทินไทย</b> ได้</li>
+          <li>ลงทะเบียน / ยกเลิก / ลบกิจกรรม (แยกบัญชีผู้ใช้)</li>
+          <li>รายการโปรดต่อบัญชี ❤️</li>
+          <li>แผนที่ + ตำแหน่ง GPS + เส้นทางนำทางจริง 🧭</li>
+          <li><b>แจ้งเตือนล่วงหน้า</b> — เวลาสำเร็จรูปหรือกำหนดเองเป็นนาที</li>
+          <li>รองรับ <b>iOS / Android / Web</b> ด้วยโค้ดชุดเดียว</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h2 class="slide-title">Week 1 — เริ่มต้นและตั้งค่าโปรเจกต์</h2>
+    <div class="slide-subtitle">Expo · โครงโปรเจกต์ · การรันแอป</div>
+    <div class="cols">
+      <div class="col"><h3>เนื้อหาที่เรียน</h3>
+        <ul><li>โครงสร้างโปรเจกต์ Expo + entry point</li><li>npm scripts (start / ios / android / web)</li><li>Debug เบื้องต้น, Expo Go</li></ul>
+      </div>
+      <div class="col ride"><h3>นำมาใช้ในงาน</h3>
+        <ul><li>แอปทั้งหมดอยู่บน <code>app/</code> แบบ Expo Router (ไฟล์ = เส้นทาง)</li><li>รันทุกแพลตฟอร์มจาก <code>package.json</code> scripts เดิม</li><li>ทดสอบจริงผ่าน Expo Go บนมือถือ + เว็บ (port 8082)</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h2 class="slide-title">Week 2 — Component, JSX, Props</h2>
+    <div class="slide-subtitle">สร้าง UI จากชิ้นส่วนที่ผนึกกัน</div>
+    <div class="cols">
+      <div class="col"><h3>เนื้อหาที่เรียน</h3>
+        <ul><li>Function component และ props</li><li>แตก UI ซ้ำ ๆ เป็น component เล็ก</li><li>Props typing ด้วย TypeScript</li></ul>
+      </div>
+      <div class="col ride"><h3>นำมาใช้ในงาน</h3>
+        <ul><li><code>EventCard</code> — การ์ดกิจกรรมใช้ซ้ำในหน้าแรก/รายการโปรด</li><li><code>RouteSteps</code>, <code>FeedbackStates</code> (Loading/Error), <code>OfflineBanner</code></li><li><code>DateTimePickerField</code> — ปฏิทินไทย 2 สเต็ป (เลือกวัน → กรอกเวลา)</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h2 class="slide-title">Week 3 — Styling และธีม</h2>
+    <div class="slide-subtitle">StyleSheet · สีเดียวทั้งแอป</div>
+    <div class="cols">
+      <div class="col"><h3>เนื้อหาที่เรียน</h3>
+        <ul><li>StyleSheet, Flexbox layout</li><li>ธีมสี compose จาก object เดียว</li></ul>
+      </div>
+      <div class="col ride"><h3>นำมาใช้ในงาน</h3>
+        <ul><li><code>constants/Colors.ts</code> — ธีม น้ำเงินกรม + ครีม + ทอง ใช้ทุกหน้า</li><li>สีที่นั่งอัตโนมัติ: <code>getSeatStatus</code> เขียว/ชมพูใกล้เต็ม/ชมพูเข้มเต็ม</li><li>Dark-header hero, ปุ่ม disabled, chip active ทั้งหมดมาจากธีมเดียว</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h2 class="slide-title">Week 4 — State, Effects และ Lifecycle</h2>
+    <div class="slide-subtitle">useState · useEffect · useFocusEffect · cleanup</div>
+    <div class="cols">
+      <div class="col"><h3>เนื้อหาที่เรียน</h3>
+        <ul><li>useState / useEffect dependency</li><li>การ cleanup, ยกเลิกงาน async</li><li>useRef เก็บค่าไม่ trigger render</li></ul>
+      </div>
+      <div class="col ride"><h3>นำมาใช้ในงาน</h3>
+        <ul><li>โหลดกิจกรรมด้วย <b>AbortSignal</b> — แท็บปิด/ออกจากหน้าจะ cancel โหลดจริง</li><li><code>useFocusEffect</code> รีเฟรชรายการแบบเงียบ ๆ เมื่อกลับมาหน้า</li><li><code>hasDataRef</code> แยก silent refresh กับ loading state แรก</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h2 class="slide-title">Week 5 — ฟอร์มและ Validation</h2>
+    <div class="slide-subtitle">Controlled form · KeyboardAvoidingView · SafeArea</div>
+    <div class="cols">
+      <div class="col"><h3>เนื้อหาที่เรียน</h3>
+        <ul><li>Controlled input, ตรวจสอบค่าก่อน submit</li><li>แสดง error รายช่อง + touched</li><li>Keyboard / notch handling</li></ul>
+      </div>
+      <div class="col ride"><h3>นำมาใช้ในงาน</h3>
+        <ul><li>ฟอร์มสร้างกิจกรรม <code>app/(tabs)/create.tsx</code> — validate ทุกช่อง + วันเวลาต้องเป็นอนาคต</li><li>ลิงก์ Google Maps ตรวจว่าอ่านพิกัดได้จริง</li><li><code>KeyboardAvoidingView</code> + <code>SafeAreaView</code> ลื่นบน iPhone รอยบาก</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h2 class="slide-title">Week 6 — รายการและการค้นหา</h2>
+    <div class="slide-subtitle">FlatList · ค้นหา · UX โหลดข้อมูล</div>
+    <div class="cols">
+      <div class="col"><h3>เนื้อหาที่เรียน</h3>
+        <ul><li>แสดงรายการสเกลใหญ่อย่างมีประสิทธิภาพ</li><li>ค้นหา/กรอง + สถานะว่าง/โหลด</li></ul>
+      </div>
+      <div class="col ride"><h3>นำมาใช้ในงาน</h3>
+        <ul><li>หน้าแรก + รายการโปรด เรนเดอร์การ์ดเป็นรายการแนวตั้ง</li><li>Empty state ภาษาไทย + loading/error จาก <code>FeedbackStates</code></li><li>สร้าง/ลบ/ยกเลิกแล้วรายการอัปเดตทันทีโดยไม่กะพริบ</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h2 class="slide-title">Week 7 — Navigation</h2>
+    <div class="slide-subtitle">Tab · Stack · dynamic route</div>
+    <div class="cols">
+      <div class="col"><h3>เนื้อหาที่เรียน</h3>
+        <ul><li>องค์ประกอบ navigation: tab, stack, modal</li><li>ส่งผ่าน parameter ระหว่างหน้า</li></ul>
+      </div>
+      <div class="col ride"><h3>นำมาใช้ในงาน</h3>
+        <ul><li><code>app/(tabs)/</code> — 5 แท็บ: หน้าแรก · สร้าง · รายการโปรด · โปรไฟล์</li><li><code>app/events/[id].tsx</code>, <code>app/register/[id].tsx</code> — dynamic route ส่ง id</li><li><code>useLocalSearchParams</code> — โหมดพิกัด override สำหรับทดสอบแผนที่</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h2 class="slide-title">Week 8 — Context API (Global State)</h2>
+    <div class="slide-subtitle">เก็บ state ร่วมทั้งแอป ไม่ใช่เฉพาะต้นไม้ component</div>
+    <div class="cols">
+      <div class="col"><h3>เนื้อหาที่เรียน</h3>
+        <ul><li>createContext / Provider / useContext</li><li>แยก context ตามหน้าที่</li></ul>
+      </div>
+      <div class="col ride"><h3>นำมาใช้ในงาน</h3>
+        <ul><li><code>AuthContext</code> — session + accountKey ใช้เป็น key เก็บข้อมูลต่อบัญชี</li><li><code>FavoritesContext</code> — toggle ❤️ ต่างหน้าจอเห็น state เดียวกัน</li><li>ทุก service เรียกด้วย accountKey — ล็อกอินชื่ออื่นจะไม่เห็นข้อมูลกัน</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h2 class="slide-title">Week 9 — Media และ UI นวัตกรรม</h2>
+    <div class="slide-subtitle">Image picker · ไอคอน · ปุจฉาพาดข้อความ</div>
+    <div class="cols">
+      <div class="col"><h3>เนื้อหาที่เรียน</h3>
+        <ul><li>เลือกรูปจากคลัง, ขอสิทธิ์, ตัดภาพ</li><li>ไอคอน + รูปแอป/สแปลช</li></ul>
+      </div>
+      <div class="col ride"><h3>นำมาใช้ในงาน</h3>
+        <ul><li><code>expo-image-picker</code> — ใส่รูปเพิ่มให้กิจกรรม + ลบรูป (draft (ต้นฉบับที่ยังไม่ submit)) ได้</li><li>Hero รูปสาขา + ไอคอน/สแปลชของ KKU ใน <code>app.json</code></li><li>ปุ่มทุกปุ่มมี <code>accessibilityLabel</code> ภาษาไทย</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h2 class="slide-title">Week 10 — ตำแหน่งและแผนที่</h2>
+    <div class="slide-subtitle">GPS · แผนที่ · เส้นทางจริง</div>
+    <div class="cols">
+      <div class="col"><h3>เนื้อหาที่เรียน</h3>
+        <ul><li>ขอและใช้ตำแหน่งผู้ใช้</li><li>ฝังแผนที่ + ปักหมุด</li></ul>
+      </div>
+      <div class="col ride"><h3>นำมาใช้ในงาน</h3>
+        <ul><li><code>expo-location</code> — หมุดคุณอยู่ใกล้กิจกรรมแค่ไหน (ระยะ กม.)</li><li><code>EventMap</code> — native ใช้ react-native-maps, เว็บใช้ iframe OSM อัตโนมัติตามแพลตฟอร์ม</li><li>เส้นทางขับจริง turn-by-turn จาก OSRM (<code>routing.ts</code>) + อ่านพิกัดจากลิงก์ Google Maps ที่แชร์มา</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h2 class="slide-title">Week 11 — Data Persistence และ Notification</h2>
+    <div class="slide-subtitle">Storage ต่อบัญชี · เตือนใจก่อนกิจกรรม</div>
+    <div class="cols">
+      <div class="col"><h3>เนื้อหาที่เรียน</h3>
+        <ul><li>บันทึกข้อมูลถาวร (storage / secure store)</li><li>ตั้งเวลาแจ้งเตือนระบบ</li></ul>
+      </div>
+      <div class="col ride"><h3>นำมาใช้ในงาน</h3>
+        <ul><li><code>AsyncStorage</code> — กิจกรรม/รายการโปรด/ลงทะเบียน <b>ต่อบัญชี</b> (key ตาม accountKey)</li><li><code>SecureStore</code> — ข้อมูลอ่อนไหวตามแพลตฟอร์ม (web = localStorage shim)</li><li><code>expo-notifications</code> — แจ้งเตือนล่วงหน้า: ทันที / 5วิ / 30วิ / 5นาที / 30นาที / <b>กำหนดเองเป็นนาที</b></li><li>Web fallback — ขอสิทธิ์ + setTimeout เตือนจริงบน browser</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h2 class="slide-title">จุดเด่นต่อยอด (เกิน Week 11)</h2>
+    <div class="slide-subtitle">ฟีเจอร์ที่ตั้งใจเพิ่มเพื่อความสมบูรณ์</div>
+    <div class="cols">
+      <div class="col"><h3>ปฏิทินไทย 2 สเต็ป</h3>
+        <ul><li>เดือนไทย + พ.ศ. พร้อมปุ่มเลื่อนเดือน</li><li>บล็อกวันที่ผ่านมา — ไม่ตั้งแจ้งเตือนย้อนหลังได้</li><li>หน้ากรอกเวลา: ชั่วโมง:นาที พิมพ์เอง + ชิปด่วน + ปุ่ม ±</li></ul>
+      </div>
+      <div class="col"><h3>แจ้งเตือนกำหนดเอง</h3>
+        <ul><li>เชื่อสำเร็จรูปหรือระบุนาทีเอง (เช่น 120 = 2 ชั่วโมงก่อน)</li><li>คำนวณจากวันเวลาเริ่มจริง — เตือนก่อนกิจกรรมพอดี</li></ul>
+      </div>
+      <div class="col"><h3>Web ระดับเดียวกับ Native</h3>
+        <ul><li>แจ้งเตือนบนเว็บด้วย Notification API</li><li>แผนที่ OSM + เขตข้อมูลต่อบัญชีเหมือนมือถือ</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide closing">
+    <div class="big">สรุปสั้น ๆ</div>
+    <p>"แอปจองกิจกรรมมหาลัย ที่เลือกวันเวลาได้เอง และแจ้งเตือนเราก่อนกิจกรรมจะเริ่ม" รวมการเรียน 11 สัปดาห์ — โค้ดเดียว รันได้ทั้ง iOS, Android และเว็บ</p>
+    <div class="stat-grid">
+      <div class="stat"><b>11</b><span>สัปดาห์ / หัวข้อ</span></div>
+      <div class="stat"><b>3</b><span>แพลตฟอร์ม</span></div>
+      <div class="stat"><b>100%</b><span>ฟีเจอร์ verify ด้วย tsc + lint</span></div>
+    </div>
+  </section>
+</div>
+
+<div class="counter" id="counter"></div>
+<div class="nav">
+  <button onclick="prev()" aria-label="ก่อนหน้า">‹</button>
+  <button onclick="next()" aria-label="ถัดไป">›</button>
+</div>
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let i = 0;
+  function render() {
+    slides.forEach((s, n) => s.classList.toggle('active', n === i));
+    document.getElementById('counter').textContent = (i + 1) + ' / ' + slides.length;
+    document.getElementById('progress').style.width = ((i + 1) / slides.length * 100) + '%';
+  }
+  function next() { i = Math.min(slides.length - 1, i + 1); render(); }
+  function prev() { i = Math.max(0, i - 1); render(); }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') next();
+    if (e.key === 'ArrowLeft') prev();
+  });
+  render();
+</script>
+</body>
+</html>
